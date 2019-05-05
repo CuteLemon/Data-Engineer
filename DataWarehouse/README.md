@@ -1,3 +1,5 @@
+[Udacity|优达学城 数据工程师纳米学位](https://cn.udacity.com/course/data-engineer-nanodegree--nd027?utm_source=github_max&utm_campaign=DEND)
+
 ## Project: data warehouse
 A music streaming startup, Sparkify, has grown their user base and song database and want to move their processes and data onto the cloud. Their data resides in S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
 
@@ -13,14 +15,15 @@ Fact data such as songs' information and users' behavior will be recorded in S3.
 ### create tables 
 
 ```shell
-python create_tables.py
+python etl.py -create
 ```
 You can run this command to create tables.
 
 ### load and transform data
 
 ```shell
-python etl.py
+python etl.py -copy
+python etl.py -insert
 ```
 You can run this command to load the data from S3 to Redshift and transform them into the fact & dimension tables.
 
