@@ -4,13 +4,14 @@ import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf, col
 from pyspark.sql.functions import year, month, dayofmonth, hour, weekofyear, date_format
+import logging
 
 
 config = configparser.ConfigParser()
-config.read('df.cfg')
+config.read('dl.cfg')
 
-os.environ['AWS_ACCESS_KEY_ID']=config['AWS_ACCESS_KEY_ID']
-os.environ['AWS_SECRET_ACCESS_KEY']=config['AWS_SECRET_ACCESS_KEY']
+os.environ['AWS_ACCESS_KEY_ID']=config['AWS']['AWS_ACCESS_KEY_ID']
+os.environ['AWS_SECRET_ACCESS_KEY']=config['AWS']['AWS_SECRET_ACCESS_KEY']
 
 
 def create_spark_session():
@@ -23,13 +24,16 @@ def create_spark_session():
 
 def process_song_data(spark, input_data, output_data):
     # get filepath to song data file
-    song_data = 
+    events = spark.read.json(input_data)
+    events.createOrReplaceTempView("events")
+    song_data = input_data+'./log-data/*'
     
     # read song data file
-    df = 
+    df = spark.read.json(song_data)
+    df.createOrReplaceTempView('events')
 
     # extract columns to create songs table
-    songs_table = 
+    songs_table = spark.sql("SELECT songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent from ")
     
     # write songs table to parquet files partitioned by year and artist
     songs_table
