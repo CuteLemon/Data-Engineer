@@ -4,9 +4,13 @@
 songplay_sql= """
     SELECT 
         distinct ts,
+        month(from_unixtime(ts/1000,'yyyy-MM-dd HH:mm:ss')) as month,
+        year(from_unixtime(ts/1000,'yyyy-MM-dd HH:mm:ss')) as year,
         userId as user_id,
         level,song_id,
         artist_id,
+        artist_name,
+        duration,
         sessionId as session_id,
         location,
         userAgent as user_agent 
@@ -46,4 +50,20 @@ artist_sql = """
         artist_latitude as latitude, 
         artist_longitude aslongitude
     from song
+"""
+
+time_sql = """
+    select 
+        from_unixtime(ts/1000,'yyyy-MM-dd HH:mm:ss') as start_time,
+        hour(from_unixtime(ts/1000,'yyyy-MM-dd HH:mm:ss')) as hour,
+        day(from_unixtime(ts/1000,'yyyy-MM-dd HH:mm:ss')) as day,
+        weekofyear(from_unixtime(ts/1000,'yyyy-MM-dd HH:mm:ss')) as week,
+        month(from_unixtime(ts/1000,'yyyy-MM-dd HH:mm:ss')) as month,
+        year(from_unixtime(ts/1000,'yyyy-MM-dd HH:mm:ss')) as year,
+        dayofweek(from_unixtime(ts/1000,'yyyy-MM-dd HH:mm:ss')) as weekday
+    from 
+        log
+    where page = 'NextSong'
+        
+
 """
