@@ -1,5 +1,9 @@
 *.pyc
+metastore_db/*
+*.log
 DS_Store/*
 *.DS_Store
 .vscode/*
 *.cfg
+data-sample/output/*
+
